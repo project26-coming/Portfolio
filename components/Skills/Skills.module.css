@@ -1,0 +1,286 @@
+/* =========================================================
+   Design tokens — matches Hero / Navbar / About theme
+   ========================================================= */
+.skills {
+  --c-bg: #07060a;
+  --c-ember: #ff7a33;
+  --c-ember-deep: #e85d1f;
+  --c-ember-soft: #ffb070;
+  --c-blue-glow: #3b6ea5;
+  --c-cream: #f5f1e8;
+  --font-body: var(--font-hero-body, 'Inter', -apple-system, sans-serif);
+  --font-mono: var(--font-hero-mono, 'JetBrains Mono', 'Courier New', monospace);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(96px, 14vh, 160px) 8%;
+  background: var(--c-bg);
+  color: var(--c-cream);
+}
+
+.ambientGlow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 55% 40% at 12% 8%,
+      rgba(255, 122, 51, 0.09) 0%,
+      rgba(255, 122, 51, 0) 70%
+    ),
+    radial-gradient(
+      ellipse 50% 45% at 92% 85%,
+      rgba(59, 110, 165, 0.1) 0%,
+      rgba(59, 110, 165, 0) 70%
+    );
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* ---- Section head ---- */
+.subtitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: var(--c-ember-soft);
+  margin: 0 0 18px;
+}
+
+.subtitleDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-ember);
+  box-shadow: 0 0 10px rgba(255, 122, 51, 0.6);
+}
+
+.heading {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(32px, 4vw, 54px);
+  letter-spacing: -0.01em;
+  margin: 0 0 clamp(64px, 9vh, 92px);
+  color: var(--c-cream);
+}
+
+/* ---- Category ---- */
+.category {
+  margin-bottom: clamp(52px, 7vh, 76px);
+}
+
+.category:last-child {
+  margin-bottom: 0;
+}
+
+.categoryTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(20px, 1.8vw, 26px);
+  letter-spacing: -0.01em;
+  margin: 0 0 clamp(22px, 3vh, 30px);
+  color: var(--c-cream);
+}
+
+.categoryBar {
+  width: 3px;
+  height: 20px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--c-ember), var(--c-ember-deep));
+  box-shadow: 0 0 12px rgba(255, 122, 51, 0.55);
+  flex-shrink: 0;
+}
+
+/* ---- Card grid ---- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: clamp(16px, 1.6vw, 22px);
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  height: 180px;
+  border-radius: 20px;
+  padding: 24px 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  cursor: pointer;
+
+  background: rgba(245, 241, 232, 0.035);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(245, 241, 232, 0.09);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 16px 32px rgba(0, 0, 0, 0.22);
+
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 178, 112, 0.5);
+  background: rgba(245, 241, 232, 0.06);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 26px 60px rgba(255, 122, 51, 0.22);
+}
+
+/* Diagonal sheen that sweeps across the card on hover */
+.cardSheen {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 178, 112, 0.14) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-18deg);
+  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.card:hover .cardSheen {
+  left: 130%;
+}
+
+/* Glowing icon badge */
+.iconRing {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(255, 122, 51, 0.08);
+  border: 1px solid rgba(255, 122, 51, 0.16);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.iconRing::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 20px;
+  background: radial-gradient(circle, rgba(255, 122, 51, 0.35) 0%, rgba(255, 122, 51, 0) 72%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: iconPulse 3.2s ease-in-out infinite;
+}
+
+.card:hover .iconRing {
+  transform: scale(1.08) rotate(-3deg);
+  background: rgba(255, 122, 51, 0.16);
+  box-shadow: 0 0 26px rgba(255, 122, 51, 0.35);
+}
+
+.card:hover .iconRing::after {
+  opacity: 1;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(0.92); opacity: 0.35; }
+  50% { transform: scale(1.08); opacity: 0.6; }
+}
+
+.icon {
+  position: relative;
+  z-index: 1;
+  font-size: 26px;
+  color: var(--c-ember-soft);
+  display: flex;
+  transition: color 0.4s ease;
+}
+
+.card:hover .icon {
+  color: var(--c-cream);
+}
+
+.cardName {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  color: rgba(245, 241, 232, 0.85);
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+.card:hover .cardName {
+  color: var(--c-cream);
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 900px) {
+  .heading {
+    font-size: clamp(30px, 8vw, 40px);
+    margin-bottom: 56px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .card {
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    height: 148px;
+    padding: 20px 14px;
+  }
+
+  .iconRing {
+    width: 48px;
+    height: 48px;
+  }
+
+  .icon {
+    font-size: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .iconRing,
+  .icon,
+  .cardName,
+  .cardSheen {
+    transition: none;
+  }
+
+  .iconRing::after {
+    animation: none;
+  }
+}

@@ -1,0 +1,322 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap");
+
+/* ---------- Section shell ---------- */
+
+.contact {
+  position: relative;
+  padding: 180px 8% 200px;
+  background: #07060a;
+  color: #f5f2ee;
+  text-align: center;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  isolation: isolate;
+}
+
+.ambientGlow {
+  position: absolute;
+  top: -12%;
+  left: 50%;
+  width: 900px;
+  height: 900px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 122, 51, 0.14) 0%,
+    rgba(255, 122, 51, 0.05) 35%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ---------- Header ---------- */
+
+.subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #ff9a5c;
+  margin-bottom: 22px;
+}
+
+.subtitleLine {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ff7a33);
+}
+
+.heading {
+  font-family: "Fraunces", serif;
+  font-weight: 500;
+  font-size: clamp(38px, 5.2vw, 64px);
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+  margin-bottom: 26px;
+}
+
+.heading span {
+  font-style: italic;
+  background: linear-gradient(90deg, #ff7a33, #ffb37a 60%, #ff7a33);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.description {
+  max-width: 620px;
+  margin: 0 auto 90px;
+  color: #b9b4b0;
+  font-size: 16.5px;
+  line-height: 1.85;
+}
+
+/* ---------- Cards grid ---------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 28px;
+  text-align: left;
+}
+
+.card {
+  position: relative;
+  padding: 40px 38px;
+  border-radius: 24px;
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(255, 122, 51, 0.15);
+  backdrop-filter: blur(16px);
+  text-decoration: none;
+  color: #f5f2ee;
+  overflow: hidden;
+  isolation: isolate;
+
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease,
+    box-shadow 0.5s ease;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-10px);
+  border-color: rgba(255, 122, 51, 0.55);
+  box-shadow: 0 26px 60px rgba(255, 122, 51, 0.18);
+}
+
+.card:focus-visible {
+  outline: 2px solid #ff9a5c;
+  outline-offset: 4px;
+}
+
+/* Cursor-tracking spotlight */
+
+.cardGlow {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: 0;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 122, 51, 0.16),
+    transparent 70%
+  );
+  transition: opacity 0.4s ease;
+}
+
+.card:hover .cardGlow {
+  opacity: 1;
+}
+
+/* Animated gradient border sweep on hover */
+
+.cardBorder {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  opacity: 0;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    #ff7a33,
+    transparent 30%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotateBorder 3.2s linear infinite;
+  transition: opacity 0.4s ease;
+}
+
+.card:hover .cardBorder {
+  opacity: 0.8;
+}
+
+@keyframes rotateBorder {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Card content ---------- */
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ffb37a;
+  background: rgba(255, 122, 51, 0.12);
+  border: 1px solid rgba(255, 122, 51, 0.3);
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.arrow {
+  font-size: 14px;
+  color: #8f8a86;
+  transform: translate(0, 0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+}
+
+.card:hover .arrow {
+  transform: translate(5px, -5px);
+  color: #ff9a5c;
+}
+
+.copyBtn {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8f8a86;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.copyBtn:hover {
+  color: #ff9a5c;
+  border-color: rgba(255, 122, 51, 0.5);
+  background: rgba(255, 122, 51, 0.08);
+}
+
+.iconWrap {
+  width: 62px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(255, 122, 51, 0.08);
+  border: 1px solid rgba(255, 122, 51, 0.2);
+  margin-bottom: 26px;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.4s ease;
+}
+
+.card:hover .iconWrap {
+  transform: rotate(-6deg) scale(1.08);
+  background: rgba(255, 122, 51, 0.16);
+}
+
+.icon {
+  font-size: 26px;
+  color: #ff7a33;
+}
+
+.card h3 {
+  font-family: "Fraunces", serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.2px;
+  margin-bottom: 8px;
+}
+
+.handle {
+  display: block;
+  font-size: 14.5px;
+  color: #8f8a86;
+  word-break: break-word;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .contact {
+    padding: 130px 6% 140px;
+  }
+
+  .description {
+    margin-bottom: 60px;
+  }
+
+  .card {
+    padding: 32px 28px;
+  }
+}
+
+@media (max-width: 420px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .cardBorder,
+  .cardGlow,
+  .iconWrap,
+  .arrow {
+    transition: none;
+    animation: none;
+  }
+
+  .card {
+    opacity: 1;
+    transform: none;
+  }
+}

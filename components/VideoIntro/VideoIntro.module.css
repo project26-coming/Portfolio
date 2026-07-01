@@ -1,0 +1,388 @@
+/* =========================================================
+   Design tokens
+   ========================================================= */
+.hero {
+  --c-bg: #07060a;
+  --c-ember: #ff7a33;
+  --c-ember-soft: #ffb070;
+  --c-blue-glow: #3b6ea5;
+  --c-cream: #f5f1e8;
+  --font-display: var(--font-hero-display, 'Anton', 'Arial Narrow', sans-serif);
+  --font-body: var(--font-hero-body, 'Inter', -apple-system, sans-serif);
+  --font-mono: var(--font-hero-mono, 'JetBrains Mono', 'Courier New', monospace);
+
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  background: var(--c-bg);
+  color: var(--c-cream);
+  isolation: isolate;
+
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: stretch;
+}
+
+/* =========================================================
+   LEFT — text content panel
+   ========================================================= */
+.contentPanel {
+  position: relative;
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(32px, 5vw, 96px);
+  background: radial-gradient(
+    ellipse at 30% 50%,
+    rgba(255, 122, 51, 0.06) 0%,
+    rgba(7, 6, 10, 0) 60%
+  );
+}
+
+.tagline {
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 1vw, 14px);
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+  color: var(--c-ember-soft);
+  margin: 0 0 clamp(14px, 2vh, 22px);
+  text-shadow: 0 0 18px rgba(255, 122, 51, 0.35);
+}
+
+.name {
+  margin: 0 0 clamp(20px, 3vh, 32px);
+  display: flex;
+  flex-direction: column;
+  line-height: 0.86;
+}
+
+.nameLine {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(46px, 6.4vw, 110px);
+  letter-spacing: 0.01em;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    var(--c-cream) 55%,
+    var(--c-ember-soft) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 30px rgba(0, 0, 0, 0.5));
+}
+
+.role {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(14px, 1.1vw, 18px);
+  line-height: 1.65;
+  max-width: 460px;
+  color: rgba(245, 241, 232, 0.78);
+  margin-bottom: clamp(24px, 4vh, 40px);
+}
+
+/* Controls now live inline under the copy, left-aligned */
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.controlButton {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  color: var(--c-cream);
+  cursor: pointer;
+  transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+.controlButton:hover {
+  background: rgba(255, 122, 51, 0.16);
+  border-color: rgba(255, 178, 112, 0.5);
+  box-shadow: 0 0 24px rgba(255, 122, 51, 0.25);
+  transform: translateY(-2px);
+}
+.controlButton:focus-visible {
+  outline: 2px solid var(--c-ember-soft);
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   RIGHT — framed video panel
+   ========================================================= */
+.videoPanel {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Blurred duplicate fills the panel edge-to-edge as ambient light */
+.bgVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(50px) saturate(1.25) brightness(0.5);
+  transform: scale(1.25);
+  z-index: 0;
+}
+
+/* Sharp video sits inset, like a framed cinematic poster */
+.fgVideoWrap {
+  position: absolute;
+  inset: clamp(20px, 4vh, 48px) clamp(20px, 4vw, 56px) clamp(20px, 4vh, 48px) clamp(16px, 3vw, 40px);
+  z-index: 2;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 60px rgba(255, 122, 51, 0.12);
+}
+
+.fgVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.05) contrast(1.04);
+}
+
+/* Gradient wash so the frame edge blends into the left panel */
+.panelGradient {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(7, 6, 10, 0.9) 0%,
+    rgba(7, 6, 10, 0) 18%
+  );
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+.grain {
+  position: absolute;
+  inset: -10%;
+  z-index: 4;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grainShift 1.4s steps(4) infinite;
+}
+@keyframes grainShift {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-2%, 1%); }
+  100% { transform: translate(1%, -2%); }
+}
+
+/* Three.js bokeh canvas mounts inside the video panel only */
+.particleMount {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Tap-for-sound badge + scroll indicator now anchor to the video frame */
+.soundBadge {
+  position: absolute;
+  z-index: 6;
+  top: clamp(36px, 5vh, 64px);
+  right: clamp(36px, 5vw, 72px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px 9px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  color: var(--c-cream);
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.soundBadgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c-ember);
+  animation: badgePulse 1.8s ease-out infinite;
+}
+@keyframes badgePulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 122, 51, 0.55); }
+  70% { box-shadow: 0 0 0 9px rgba(255, 122, 51, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 122, 51, 0); }
+}
+
+.scrollIndicator {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: clamp(20px, 4vh, 36px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(245, 241, 232, 0.7);
+}
+
+.scrollLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+}
+
+.scrollLine {
+  position: relative;
+  width: 1px;
+  height: 40px;
+  background: rgba(245, 241, 232, 0.18);
+  overflow: hidden;
+}
+
+.scrollPulse {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 122, 51, 0) 0%,
+    var(--c-ember-soft) 50%,
+    rgba(255, 122, 51, 0) 100%
+  );
+  animation: scrollPulseMove 2.4s ease-in-out infinite;
+}
+@keyframes scrollPulseMove {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+/* =========================================================
+   Responsive — stack video below content under ~900px
+   ========================================================= */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: auto;
+    min-height: 100svh;
+  }
+  .contentPanel {
+    padding: clamp(28px, 8vw, 48px) clamp(20px, 6vw, 40px) 24px;
+  }
+  .videoPanel {
+    min-height: 46vh;
+  }
+  .fgVideoWrap {
+    inset: 16px;
+    border-radius: 12px;
+  }
+  .nameLine {
+    font-size: clamp(40px, 13vw, 64px);
+  }
+  .role {
+    max-width: 100%;
+  }
+  .soundBadge span:not(.soundBadgeDot) {
+    display: none;
+  }
+  .soundBadge {
+    padding: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain,
+  .soundBadgeDot,
+  .scrollPulse {
+    animation: none !important;
+  }
+}
+.heroButtons {
+  display: flex;
+  gap: 18px;
+  margin-top: 35px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 34px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff7a33, #ff9a5a);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255,122,51,.35);
+}
+
+.primaryButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255,122,51,.45);
+}
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.04);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all .3s ease;
+  backdrop-filter: blur(12px);
+}
+
+.secondaryButton:hover {
+  border-color: #ff7a33;
+  color: #ff7a33;
+  transform: translateY(-3px);
+}

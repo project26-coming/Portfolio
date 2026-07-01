@@ -1,0 +1,304 @@
+/* ==========================================================================
+   Design tokens (local fallbacks — swap for your global tokens if named
+   differently, e.g. var(--bg), var(--accent), var(--text))
+   ========================================================================== */
+.wrapper {
+  --nav-bg: #07060a;
+  --nav-accent: #ff7a33;
+  --nav-accent-rgb: 255, 122, 51;
+  --nav-text: #f5f1e8;
+  --nav-text-dim: rgba(245, 241, 232, 0.6);
+  --nav-border: rgba(245, 241, 232, 0.1);
+}
+
+/* ==========================================================================
+   Header wrapper — owns the fixed positioning
+   ========================================================================== */
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ==========================================================================
+   Floating glass navbar
+   ========================================================================== */
+.navbar {
+  margin-top: 20px;
+  width: min(92%, 1200px);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+
+  padding: 14px 16px 14px 22px;
+  border-radius: 999px;
+
+  background: rgba(15, 13, 18, 0.45);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--nav-border);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 20px 50px rgba(0, 0, 0, 0.25);
+
+  transition: background 0.5s ease, box-shadow 0.5s ease,
+    border-color 0.5s ease, padding 0.5s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(7, 6, 10, 0.75);
+  border-color: rgba(245, 241, 232, 0.14);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   Logo
+   ========================================================================== */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 4px;
+  font-family: inherit;
+}
+
+.logoMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--nav-accent);
+  color: #07060a;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 8px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo:hover .logoMark {
+  transform: rotate(-12deg) scale(1.06);
+}
+
+.logoText {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--nav-text);
+}
+
+/* ==========================================================================
+   Desktop links
+   ========================================================================== */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.link {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  color: var(--nav-text-dim);
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: var(--nav-text);
+}
+
+.link.active {
+  color: var(--nav-accent);
+}
+
+.indicator {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--nav-accent);
+  box-shadow: 0 0 12px rgba(var(--nav-accent-rgb), 0.7);
+}
+
+/* ==========================================================================
+   Actions — resume + mobile toggle
+   ========================================================================== */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  background: var(--nav-accent);
+  color: #07060a;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease,
+    background 0.35s ease;
+}
+
+.resume:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(var(--nav-accent-rgb), 0.45);
+}
+
+.resumeIcon {
+  font-size: 15px;
+}
+
+.menuToggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--nav-border);
+  background: rgba(245, 241, 232, 0.04);
+  color: var(--nav-text);
+  cursor: pointer;
+  font-size: 19px;
+  overflow: hidden;
+}
+
+.menuIcon {
+  display: flex;
+}
+
+/* ==========================================================================
+   Mobile menu
+   ========================================================================== */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 6, 10, 0.6);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  z-index: -1;
+}
+
+.mobileMenu {
+  margin-top: 12px;
+  width: min(92%, 1200px);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 2px;
+
+  border-radius: 22px;
+  background: rgba(12, 10, 15, 0.85);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid var(--nav-border);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+.mobileLink {
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--nav-text-dim);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.mobileLink:hover {
+  background: rgba(245, 241, 232, 0.05);
+  color: var(--nav-text);
+}
+
+.mobileActive {
+  color: var(--nav-accent);
+  background: rgba(var(--nav-accent-rgb), 0.08);
+}
+
+.mobileResume {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 16px;
+  border-radius: 14px;
+  text-decoration: none;
+
+  background: var(--nav-accent);
+  color: #07060a;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 900px) {
+  .links {
+    display: none;
+  }
+
+  .resume {
+    display: none;
+  }
+
+  .menuToggle {
+    display: flex;
+  }
+
+  .navbar {
+    padding: 12px 12px 12px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logoText {
+    letter-spacing: 2px;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .logoMark,
+  .resume {
+    transition: none;
+  }
+}
