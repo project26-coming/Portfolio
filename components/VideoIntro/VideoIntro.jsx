@@ -153,7 +153,7 @@ export default function VideoIntro({
   </a>
 
   <a
-    href="/KadimetlaVarsha_resume.pdf"
+    href="/KadimetlaVarsha_240968102_DataScience.pdf"
     className={styles.secondaryButton}
     target="_blank"
     rel="noopener noreferrer"

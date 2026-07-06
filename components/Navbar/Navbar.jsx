@@ -109,7 +109,7 @@ export default function Navbar() {
 
         <div className={styles.actions}>
           <a
-            href="/KadimetlaVarsha_resume.pdf"
+            href="/KadimetlaVarsha_240968102_DataScience.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.resume}
@@ -181,7 +181,7 @@ export default function Navbar() {
                   delay: 0.05 * NAV_LINKS.length + 0.1,
                   duration: 0.3,
                 }}
-                href="/KadimetlaVarsha_resume.pdf"
+                href="/KadimetlaVarsha_240968102_DataScience.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.mobileResume}
